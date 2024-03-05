@@ -1,32 +1,18 @@
 <template>
   <div class="lessons-container col-12">
-    <LessonCard 
-    icon = "fa-solid fa-calculator"
-    subject = "Maths"
-    location = "London"
-    :price = "100"
-    date = "25/10/2023"
-    starts_at = "14:00PM"
-    ends_at = "17:00PM"
-    image_path = "https://wpvip.edutopia.org/wp-content/uploads/2022/10/F6W9XT.jpg-crop.jpg?w=2880&quality=85"
-    image_alt = "an image"
-    :spaces = "5"
-  ></LessonCard>
-  <LessonCard 
-    icon = "fa-solid fa-calculator"
-    subject = "Maths"
-    location = "London"
-    :price = "100"
-    date = "25/10/2023"
-    starts_at = "14:00PM"
-    ends_at = "17:00PM"
-    image_path = "https://wpvip.edutopia.org/wp-content/uploads/2022/10/F6W9XT.jpg-crop.jpg?w=2880&quality=85"
-    image_alt = "an image"
-    :spaces = "5"
-  ></LessonCard>
-
-  </div>
-  
+    <LessonCard v-for="lesson in lessons" :key="lesson.id"
+      :icon = lesson.icon
+      :subject = lesson.subject
+      :location = lesson.location
+      :price = lesson.price
+      :date = lesson.date
+      :starts_at = lesson.starts_at
+      :ends_at = lesson.ends_at
+      :image_path = lesson.image_path
+      :image_alt = lesson.image_alt
+      :spaces = lesson.spaces
+    ></LessonCard>
+ </div>
 </template>
 
 <script>
@@ -34,7 +20,7 @@ import LessonCard from '../components/LessonCard.vue';
 export default {
   name: "LessonView",
   props: {
-    lessons: Array
+    lessons: {type: Array, required: true, default: []}
   },
   components:{
     LessonCard
@@ -48,7 +34,7 @@ export default {
     flex: 1;
     flex-wrap: wrap;
     background: #fddfdc;
-    align-items: center;
+    align-items: start;
     justify-content: center;
     background: #ffffff;
     padding: 15px;
