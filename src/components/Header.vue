@@ -1,10 +1,10 @@
 <template>
-     <div class="header container-fluid p-0 m-0 row">
-        <div class="site-name col-8 ps-3 h-100">
-            <h1 v-text="siteName" class="ps-2"></h1>
+     <div class="header container-fluid row">
+        <div class="site-name col-10 bg-black ps-3">
+            <h1 v-text="siteName"></h1>
         </div>
         
-        <div class="cart col-4 h-100 pe-3">
+        <div class="cart col-2  pe-3">
             <div class="cart-icon" @click="toggle">
                 <i class="fa-solid fa-cart-shopping"></i>
                 <div v-if="cartCounter > 0" class="counter" v-text="cartCounter"></div>
@@ -32,6 +32,8 @@ export default {
 .header {
     height: 60px;
     background: #BF4C41;
+    padding: 0;
+    margin: 0;
 }
 i, h1 {
     font-size: 1.7em;
@@ -41,14 +43,13 @@ i, h1 {
     display: flex;
     justify-content: start;
     align-items: center;
-}
-.header .site-name h1 {
     font-family: 'Dancing Script', cursive;
 }
+
 .cart {
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: flex-end;
 }
 .cart .cart-icon i {
     cursor: pointer;
