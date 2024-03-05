@@ -1,10 +1,10 @@
 <template>
   <div id="app" v-cloak>
-    <Header :siteName="siteName" :cartCounter="1" @cart-on-click="toggleCart"></Header>
+    <Header :siteName="site.name" :cartCounter="1" @cart-on-click="toggleCart"></Header>
     <div class="container-fluid p-3 bg-success">
-      <component :is="currentView"></component>
+      <component :is="currentView" :lessons="lessons"></component>
     </div>
-    <CopyrightBar :year="copyright_year" :siteName="siteName"></CopyrightBar>
+    <CopyrightBar :year="site.copyright_year" :siteName="site.name"></CopyrightBar>
   </div>
 </template>
 
@@ -18,8 +18,10 @@ export default {
   name: "App",
   data() {
     return {
-      siteName: "After School Hub",
-      copyright_year: 2023,
+      site: {
+        name: "After School Hub",
+        copyright_year: 2023
+      },
       cart: [],
       lessons: [],
       endpoints: {
