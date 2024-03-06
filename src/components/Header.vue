@@ -1,12 +1,12 @@
 <template>
      <div class="header container-fluid row">
-        <div class="site-name col-10 bg-black ps-3">
+        <div class="site-name col-10 ps-3">
             <h1 v-text="siteName"></h1>
         </div>
         
-        <div class="cart col-2  pe-3">
+        <div class="cart col-2  pe-4">
             <div class="cart-icon" @click="toggle">
-                <i class="fa-solid fa-cart-shopping"></i>
+                <font-awesome-icon icon="fa-solid fa-cart-shopping" class="icon"/>
                 <div v-if="cartCounter > 0" class="counter" v-text="cartCounter"></div>
             </div>
         </div>
@@ -51,19 +51,23 @@ i, h1 {
     align-items: center;
     justify-content: flex-end;
 }
-.cart .cart-icon i {
+.cart .cart-icon .icon {
     cursor: pointer;
     position: relative;
     z-index: 0;
+    color: #fff;
+    font-size: 1.5em;
 }
+
+
 .cart .cart-icon .counter {
     display: flex;
     justify-content: center;
     align-items: center;
     position: absolute;
     z-index: 1;
-    top: 9px;
-    right: 7px;
+    top: 12px;
+    right: 17px;
     background: #ec5c2c;
     border-radius: 20px;
     width: 20px;
