@@ -5,6 +5,21 @@ import "./assets/css/base.css"
 import "./assets/css/main.css"
 import "./assets/css/fonts.css"
 
+/* -------- Start of Font Awesome Imports -------- */
+
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import { faMoneyBillWave } from '@fortawesome/free-solid-svg-icons';
+
+library.add(faCartShopping);
+Vue.component('font-awesome-icon', FontAwesomeIcon);
+
+Vue.config.productionTip = false;
+
+/* -------- End of Font Awesome Imports -------- */
+
+
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('../src/service-worker.js')
