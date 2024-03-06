@@ -1,8 +1,8 @@
 const cacheIdentityName = "main-cache";
 const static_files = [
-    '/index.html',
-    '/32x32.png',
-    '/512x512.png',
+    '/images/index.html',
+    '/images/32x32.png',
+    '/images/512x512.png',
     '/manifest.webmanifest'
 ];
 
