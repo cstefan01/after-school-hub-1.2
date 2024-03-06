@@ -2,7 +2,12 @@
   <div id="app" v-cloak>
     <Header :siteName="site.name" :cartCounter="computedCartSize" @cart-on-click="toggleCart"></Header>
     <div class="container-fluid p-3">
-      <component :is="currentView" :lessons="lessons"></component>
+      <component 
+        :is="currentView" 
+        :lessons="lessons" 
+        :cartItems="cart" 
+        :bill = "bill"
+        ></component>
     </div>
     <CopyrightBar :year="site.copyright_year" :siteName="site.name"></CopyrightBar>
   </div>
@@ -22,7 +27,16 @@ export default {
         name: "After School Hub",
         copyright_year: 2023
       },
-      cart: [],
+      status:{
+        isOffline: false
+      },
+      cart: [1],
+      bill: {
+        subTotal: 0,
+        tax: 0,
+        discount: 0,
+        total: 0
+      },
       lessons: [],
       endpoints: {
         host: "https://after-school-hub-env2.eba-iijwxnmm.eu-west-2.elasticbeanstalk.com",
@@ -65,6 +79,12 @@ export default {
       }else{
         this.currentView = LessonView
       }
+    },
+    handleOffline() {
+      this.isOffline = true;
+    },
+    handleOnline() {
+      this.isOffline = false;
     }
   },
   computed:{
@@ -77,5 +97,9 @@ export default {
     this.fetchLessons();
     console.log(this.lessons);
   },
+  mounted(){
+    window.addEventListener('offline', this.handleOffline);
+    window.addEventListener('online', this.handleOnline);
+  }
 }
 </script>

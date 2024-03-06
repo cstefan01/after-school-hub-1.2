@@ -10,8 +10,8 @@
 export default {
     name: "CopyrightBar",
     props:{
-        siteName: String,
-        year: Number
+        siteName: {type: String, required: true, default: ""},
+        year: {type: Number, required: true, default: 0}
     }
 }
 </script>
@@ -25,6 +25,8 @@ export default {
     height: 70px;
     color: #fff;
     background: #BF4C41;
+    text-align: center;
+    z-index: 10;
 }
 /* ------------ End of Footer ------------- */
 </style>

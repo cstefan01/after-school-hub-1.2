@@ -49,16 +49,16 @@
 export default {
     name: "LessonCard",
     props: {
-        image_path: String,
-        image_alt: String,
-        icon: String,
-        subject: String,
-        spaces: Number,
-        location: String,
-        date: String,
-        starts_at: String,
-        ends_at: String,
-        price: Number
+        image_path: {type: String, required: false, default: ""},
+        image_alt: {type: String, required: false, default: ""},
+        icon: {type: String, required: false, default: ""},
+        subject: {type: String, required: true, default: ""},
+        spaces: {type: Number, required: false, default: 0},
+        location: {type: String, required: true, default: ""},
+        date: {type: String, required: true, default: ""},
+        starts_at: {type: String, required: true, default: ""},
+        ends_at: {type: String, required: true, default: ""},
+        price: {type: Number, required: true, default: 0}
     }
 }
 </script>

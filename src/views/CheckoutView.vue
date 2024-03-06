@@ -17,10 +17,19 @@
             &times;
           </div>
         </li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
+
+        <li> 
+          <img src="https://media.istockphoto.com/id/950609102/photo/girl-solving-mathematical-addition.jpg?s=612x612&w=0&k=20&c=hIOWKbDapOX0leF6wwRkSYeqJggAuEYTLdY-KHf1je4=" alt="">
+          <div class="item-info">
+            <h3>Computer Science</h3>
+            <h4>London</h4>
+            <h5>$20.00</h5>
+          </div>
+          <div class="remove-item">
+            &times;
+          </div>
+        </li>
+       
       </ul>
 
     </div>
@@ -29,25 +38,107 @@
       <h2>Order Summary</h2>
     </div>
     <div class="bill-info">
+      <table>
+        <tr class="sub-total">
+          <th>Sub-Total</th>
+          <td>£{{ bill.subTotal.toFixed(2) }}</td>
+        </tr>
+        <tr class="tax">
+          <th>Tax</th>
+          <td>£{{ bill.tax.toFixed(2) }}</td>
+        </tr>
+        <tr class="discount">
+          <th>Discount</th>
+          <td>£{{ bill.discount.toFixed(2) }}</td>
+        </tr>
+        <tr class="total">
+          <th>Total</th>
+          <td>£{{ bill.total.toFixed(2) }}</td>
+        </tr>
+      </table>
 
     </div>
-    
 
+    <div class="btn-checkout">
+      <button> Pay Now! </button>
+    </div>
+    
   </div>
 </template>
 
 <script>
 export default {
+  name: "CheckoutView",
+  props:{
+    cartItems: {type: Array, required: true, default: []},
+    bill: {type: Object, required: true, default: {}}
+  }
 
 }
 </script>
 
 <style>
+.btn-checkout{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.btn-checkout button{
+  border: none;
+  padding: 20px;
+  width: 70%;
+  height: 60px;
+  border-radius: 40px;
+  background: #BF4C41;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.3em;
+}
+
+.total{
+  font-weight: bold;
+  font-size: 1.5em;
+  color:#BF4C41;
+}
+
+th{
+  text-align: inherit;
+  text-align: -webkit-match-parent;
+}
+.total th{
+  text-transform: uppercase;
+}
+
+.tax th, .tax td, .discount th, .discount td {
+  font-weight: normal;
+}
+
+.sub-total td, .sub-total th{
+  font-weight: bold;
+}
 .bill-info{
   width: 100%;
   height: 230px;
-  background: #BF4C41;
+  background: #fff;
+  padding: 10px;
 }
+
+.bill-info table{
+  width: 100%;
+  height: 100%;
+}
+
+.bill-info table th, td{
+  width: 50%;
+}
+.bill-info table td{
+  text-align: right;
+}
+.bill-info table th{
+  text-align: left;
+}
+
 .remove-item{
   font-size: 2em;
 }
@@ -85,12 +176,17 @@ export default {
   align-items: center;
   flex-direction: column;
   width: 100%;
-  background: #ed7373;
+  background: #fff;
   height: 60px;
 
 }
 .section-header h2, .icon{
   font-size: 1.3em;
+}
+
+.section-header h2{
+  position: relative;
+  top: 10px;
 }
 
 .cart-items{
@@ -117,7 +213,7 @@ export default {
   width: 100%;
   height: 100%;
   padding: 5px;
-  background: #cb1818;
+  background: #fff;
 }
 
 .cart-items ul li{
