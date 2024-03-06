@@ -1,7 +1,7 @@
 <template>
   <div id="app" v-cloak>
-    <Header :siteName="site.name" :cartCounter="1" @cart-on-click="toggleCart"></Header>
-    <div class="container-fluid p-3 bg-success">
+    <Header :siteName="site.name" :cartCounter="computedCartSize" @cart-on-click="toggleCart"></Header>
+    <div class="container-fluid p-3">
       <component :is="currentView" :lessons="lessons"></component>
     </div>
     <CopyrightBar :year="site.copyright_year" :siteName="site.name"></CopyrightBar>
@@ -60,12 +60,18 @@ export default {
       })
     },
     toggleCart(){
-      if(this.currentView === LessonView){
+      if((this.currentView === LessonView) && (this.cart.length > 0)){
         this.currentView = CheckoutView
       }else{
         this.currentView = LessonView
       }
     }
+  },
+  computed:{
+    computedCartSize(){
+      return this.cart.length;
+    }
+
   },
   beforeMount() {
     this.fetchLessons();
