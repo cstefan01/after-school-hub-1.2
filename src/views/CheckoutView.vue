@@ -6,30 +6,17 @@
     </div>
     <div class="cart-items">
       <ul>
-        <li> 
-          <img src="https://media.istockphoto.com/id/950609102/photo/girl-solving-mathematical-addition.jpg?s=612x612&w=0&k=20&c=hIOWKbDapOX0leF6wwRkSYeqJggAuEYTLdY-KHf1je4=" alt="">
+        <li v-for="item in cartItems" :key="item.id"> 
+          <img :src="item.image.path" :alt="item.image.alt" @error="showNoImage">
           <div class="item-info">
-            <h3>Computer Science</h3>
-            <h4>London</h4>
-            <h5>$20.00</h5>
+            <h3>{{ item.subject }}</h3>
+            <h4>{{ item.location }}</h4>
+            <h5>${{ item.price.toFixed(2) }}</h5>
           </div>
-          <div class="remove-item">
+          <div class="remove-item" @click="removeFromCart(item)">
             &times;
           </div>
         </li>
-
-        <li> 
-          <img src="https://media.istockphoto.com/id/950609102/photo/girl-solving-mathematical-addition.jpg?s=612x612&w=0&k=20&c=hIOWKbDapOX0leF6wwRkSYeqJggAuEYTLdY-KHf1je4=" alt="">
-          <div class="item-info">
-            <h3>Computer Science</h3>
-            <h4>London</h4>
-            <h5>$20.00</h5>
-          </div>
-          <div class="remove-item">
-            &times;
-          </div>
-        </li>
-       
       </ul>
 
     </div>
@@ -69,9 +56,23 @@
 <script>
 export default {
   name: "CheckoutView",
+  data(){
+    return{
+      noImagePath: "/images/no_image.jpg"
+    }
+
+  },
   props:{
     cartItems: {type: Array, required: true, default: []},
     bill: {type: Object, required: true, default: {}}
+  },
+  methods:{
+    showNoImage(event) {
+      event.target.src = this.noImagePath;
+    },
+    removeFromCart(lesson){
+      this.$emit("remove-item-from-cart", lesson);
+    }
   }
 
 }
