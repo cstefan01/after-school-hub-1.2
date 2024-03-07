@@ -1,15 +1,17 @@
 <template>
   <div id="app" v-cloak>
-    <Header :siteName="site.name" :cartCounter="computedCartSize" @cart-on-click="toggleCart"></Header>
+    <Header :siteName="site.name" :cartCounter = "computedCartSize" @cart-on-click = "toggleCart"></Header>
     <div class="container-fluid p-3">
       <component 
-        :is="currentView" 
-        :lessons="lessons" 
-        :cartItems="cart" 
+        :is = "currentView" 
+        :lessons = "lessons" 
+        :cartItems = "cart" 
         :bill = "bill"
+        @add-item-to-cart = "addLessonToCart"
+        @remove-item-from-cart = "removeLessonFromCart"
         ></component>
     </div>
-    <CopyrightBar :year="site.copyright_year" :siteName="site.name"></CopyrightBar>
+    <CopyrightBar :year = "site.copyright_year" :siteName = "site.name"></CopyrightBar>
   </div>
 </template>
 
@@ -30,7 +32,7 @@ export default {
       status:{
         isOffline: false
       },
-      cart: [1],
+      cart: [],
       bill: {
         subTotal: 0,
         tax: 0,
@@ -49,6 +51,12 @@ export default {
   },
   components: { LessonView, CheckoutView, Header, CopyrightBar },
   methods:{
+    addLessonToCart(lesson){
+      this.cart.push(lesson);
+    },
+    removeLessonFromCart(lesson){
+      console.log("removed fro cart", lesson);
+    },
     async getLessons() {
       try {
         const endpoint = `${this.endpoints.host}${this.endpoints.lessons}`;
@@ -73,8 +81,20 @@ export default {
         this.lessons = lessons;
       })
     },
+    computeSubTotal(){
+      const cartItems = this.cart;
+      let subTotal = 0;
+      for(let item of cartItems){
+        subTotal += item.price;
+      }
+      return subTotal;
+    },
+    showBill(){
+      this.bill.subTotal = this.computeSubTotal();
+    },
     toggleCart(){
       if((this.currentView === LessonView) && (this.cart.length > 0)){
+        this.showBill();
         this.currentView = CheckoutView
       }else{
         this.currentView = LessonView
@@ -91,7 +111,6 @@ export default {
     computedCartSize(){
       return this.cart.length;
     }
-
   },
   beforeMount() {
     this.fetchLessons();
