@@ -6,7 +6,9 @@
         :is = "currentView" 
         :lessons = "lessons" 
         :cartItems = "cart" 
-        :bill = "bill"
+        :tax = 20
+        :discount = 0
+        :imagesSource = "endpoints.host + endpoints.images"
         @add-item-to-cart = "addLessonToCart"
         @remove-item-from-cart = "removeLessonFromCart"
         ></component>
@@ -33,12 +35,6 @@ export default {
         isOffline: false
       },
       cart: [],
-      bill: {
-        subTotal: 0,
-        tax: 0,
-        discount: 0,
-        total: 0
-      },
       lessons: [],
       endpoints: {
         host: "https://after-school-hub-env2.eba-iijwxnmm.eu-west-2.elasticbeanstalk.com",
@@ -52,10 +48,21 @@ export default {
   components: { LessonView, CheckoutView, Header, CopyrightBar },
   methods:{
     addLessonToCart(lesson){
+      lesson.spaces -= 1;
       this.cart.push(lesson);
     },
     removeLessonFromCart(lesson){
-      console.log("removed fro cart", lesson);
+      const cartLength = this.cart.length;
+      for (let i = 0; i < cartLength; i++) {
+        let currentLesson = this.cart[i];
+     
+        if (JSON.stringify(currentLesson) === JSON.stringify(lesson)) {
+              lesson.spaces += 1;
+              this.cart.splice(i, 1); 
+              break;
+        }
+      }
+
     },
     async getLessons() {
       try {
@@ -81,20 +88,8 @@ export default {
         this.lessons = lessons;
       })
     },
-    computeSubTotal(){
-      const cartItems = this.cart;
-      let subTotal = 0;
-      for(let item of cartItems){
-        subTotal += item.price;
-      }
-      return subTotal;
-    },
-    showBill(){
-      this.bill.subTotal = this.computeSubTotal();
-    },
     toggleCart(){
       if((this.currentView === LessonView) && (this.cart.length > 0)){
-        this.showBill();
         this.currentView = CheckoutView
       }else{
         this.currentView = LessonView
