@@ -8,7 +8,7 @@
                 <i :class="lesson.icon"></i>
                 <p v-text="lesson.subject"></p>
                 <div class="spaces-tag">
-                    {{ lesson.spaces }} spaces lefts
+                    {{ lesson.spaces }} spaces left
                 </div>
             </div>
         </div>
