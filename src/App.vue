@@ -33,9 +33,6 @@ export default {
         name: "After School Hub",
         copyright_year: 2023
       },
-      status:{
-        isOffline: false
-      },
       cart: [],
       lessons: [],
       endpoints: {
@@ -67,6 +64,11 @@ export default {
       }
 
     },
+    registerServiceWorker(){
+      if("serviceWorker" in navigator){
+        navigator.serviceWorker.register("service-worker.js");
+      }
+    },
     async getLessons() {
       try {
         const endpoint = `${this.endpoints.host}${this.endpoints.lessons}`;
@@ -97,12 +99,6 @@ export default {
       }else{
         this.currentView = LessonView
       }
-    },
-    handleOffline() {
-      this.isOffline = true;
-    },
-    handleOnline() {
-      this.isOffline = false;
     }
   },
   computed:{
@@ -112,24 +108,9 @@ export default {
   },
   beforeMount() {
     this.fetchLessons();
-    console.log(this.lessons);
-  },
-  mounted(){
-    window.addEventListener('offline', this.handleOffline);
-    window.addEventListener('online', this.handleOnline);
   },
   created() {
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('service-worker.js')
-          .then(registration => {
-            console.log('Service Worker registered with scope:', registration.scope);
-          })
-          .catch(error => {
-            console.error('Service Worker registration failed:', error);
-          });
-      });
-    }
+    this.registerServiceWorker();
   }
 }
 </script>
