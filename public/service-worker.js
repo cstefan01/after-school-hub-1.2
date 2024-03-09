@@ -1,9 +1,9 @@
 const cacheIdentityName = "main-cache";
 const static_files = [
-    '../index.html',
-    '../images/32x32.png',
-    '../images/512x512.png',
-    '../manifest.webmanifest'
+    'index.html',
+    '/images/32x32.png',
+    '/images/512x512.png',
+    'manifest.webmanifest'
 ];
 
 self.addEventListener('install', event => {
