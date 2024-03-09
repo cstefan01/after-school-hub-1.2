@@ -4,11 +4,12 @@
             <h1 v-text="siteName"></h1>
         </div>
         
-        <div class="cart col-2  pe-4">
+        <div class="cart col-2 pe-4">
             <div class="cart-icon" @click="toggle">
                 <font-awesome-icon icon="fa-solid fa-cart-shopping" class="icon"/>
                 <div v-if="cartCounter > 0" class="counter" v-text="cartCounter"></div>
             </div>
+            <!--<font-awesome-icon :icon="['fas', 'gear']" class="icon"/> -->
         </div>
      </div>
 </template>
@@ -58,8 +59,6 @@ i, h1 {
     color: #fff;
     font-size: 1.5em;
 }
-
-
 .cart .cart-icon .counter {
     display: flex;
     justify-content: center;

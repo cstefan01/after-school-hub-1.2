@@ -7,7 +7,7 @@
     <div class="cart-items">
       <ul>
         <li v-for="item in cartItems" :key="item.id"> 
-          <img :src="item.image.path" :alt="item.image.alt" @error="showNoImage">
+          <img :src="imagesSource + '/' + item.image.path" :alt="item.image.alt" @error="showNoImage">
           <div class="item-info">
             <h3>{{ item.subject }}</h3>
             <h4>{{ item.location }}</h4>
@@ -28,19 +28,19 @@
       <table>
         <tr class="sub-total">
           <th>Sub-Total</th>
-          <td>£{{ bill.subTotal.toFixed(2) }}</td>
+          <td>£{{ computedSubTotal.toFixed(2) }}</td>
         </tr>
         <tr class="tax">
           <th>Tax</th>
-          <td>£{{ bill.tax.toFixed(2) }}</td>
+          <td>£{{ computedTax.toFixed(2) }}</td>
         </tr>
         <tr class="discount">
           <th>Discount</th>
-          <td>£{{ bill.discount.toFixed(2) }}</td>
+          <td>£1</td>
         </tr>
         <tr class="total">
           <th>Total</th>
-          <td>£{{ bill.total.toFixed(2) }}</td>
+          <td>£{{ computedTotal.toFixed(2) }}</td>
         </tr>
       </table>
 
@@ -64,7 +64,9 @@ export default {
   },
   props:{
     cartItems: {type: Array, required: true, default: []},
-    bill: {type: Object, required: true, default: {}}
+    tax: {type: Number, required: true, default: 0},
+    discount: {type: Number, required: true, default: 0},
+    imagesSource: {type: String, required: true, default: ""}
   },
   methods:{
     showNoImage(event) {
@@ -73,7 +75,27 @@ export default {
     removeFromCart(lesson){
       this.$emit("remove-item-from-cart", lesson);
     }
+  },
+  computed:{
+    computedSubTotal(){
+      let subTotal = 0;
+      for(let item of this.cartItems){
+        subTotal += item.price;
+      }
+      return subTotal;
+    },
+    computedTax(){
+
+      const tax = this.computedSubTotal * (this.tax / 100);
+
+      return tax;
+
+    },
+    computedTotal(){
+      return this.computedSubTotal + this.computedTax;
+    }
   }
+ 
 
 }
 </script>

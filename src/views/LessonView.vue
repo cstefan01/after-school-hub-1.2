@@ -1,9 +1,9 @@
 <template>
   <div class="lessons-container col-12">
 
-    <div class="lesson-card col-11" v-for="lesson in lessons" :key="lesson.id">
+    <div class="lesson-card col-11 col-lg-3 col-md-5" v-for="lesson in lessons" :key="lesson.id">
         <div class="lesson-icon col-12" >
-            <img :src="lesson.image_path" :alt="lesson.image_alt">
+            <img :src="imagesSource + '/' + lesson.image.path" :alt="lesson.image_alt">
             <div class="details">
                 <i :class="lesson.icon"></i>
                 <p v-text="lesson.subject"></p>
@@ -51,7 +51,8 @@
 export default {
   name: "LessonView",
   props: {
-    lessons: {type: Array, required: true, default: []}
+    lessons: {type: Array, required: true, default: []},
+    imagesSource: {type: String, required: true, default: ""}
   },
   methods:{
     addToCart(lesson){
