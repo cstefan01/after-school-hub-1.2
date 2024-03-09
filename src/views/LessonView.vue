@@ -67,7 +67,6 @@ export default {
     display: flex;
     flex: 1;
     flex-wrap: wrap;
-    background: #fddfdc;
     align-items: start;
     justify-content: center;
     background: #ffffff;

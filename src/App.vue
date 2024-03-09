@@ -1,6 +1,7 @@
 <template>
   <div id="app" v-cloak>
     <Header :siteName="site.name" :cartCounter = "computedCartSize" @cart-on-click = "toggleCart"></Header>
+    <TestConsole v-if="testConsole"></TestConsole>
     <div class="container-fluid p-3">
       <component 
         :is = "currentView" 
@@ -22,6 +23,7 @@ import LessonView from './views/LessonView.vue';
 import CheckoutView from './views/CheckoutView.vue';
 import Header from './components/Header.vue';
 import CopyrightBar from './components/CopyrightBar.vue';
+import TestConsole from './components/TestConsole.vue';
 
 export default {
   name: "App",
@@ -43,9 +45,10 @@ export default {
         images: "/images"
       },
       currentView: LessonView,
+      testConsole: true,
     }
   },
-  components: { LessonView, CheckoutView, Header, CopyrightBar },
+  components: { LessonView, CheckoutView, Header, CopyrightBar, TestConsole },
   methods:{
     addLessonToCart(lesson){
       lesson.spaces -= 1;
