@@ -6,9 +6,9 @@
 
     <div class="tests-panel col-12">
         <div class="tests col-6">
-            <h3>Database Tests</h3>
+            <h3>Database API Tests</h3>
             <button>Create a Product</button>
-            <button>Link</button>
+            <a target="_blank" :href="apiEndpoint">API Lessons Endpoint</a>
         </div>
         <div class="tests col-6">
             <h3>Cache Tests</h3>
@@ -29,6 +29,10 @@
 
 <script>
 export default {
+    name: "TestConsole",
+    props:{
+        apiEndpoint: {type: String, required: true, default: ""}
+    } 
 
 }
 </script>
@@ -51,7 +55,7 @@ export default {
     flex-direction: column;
 }
 
-.test-console button{
+.test-console button, a{
     border: none;
     padding: 5px;
     width: 165px;
@@ -59,6 +63,18 @@ export default {
     background: #BF4C41;
     color: #ffffff;
     min-height: 50px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.test-console a{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    
+
+
+
 }
 
 .tests-panel{

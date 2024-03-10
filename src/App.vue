@@ -1,7 +1,7 @@
 <template>
   <div id="app" v-cloak>
     <Header :siteName="site.name" :cartCounter = "computedCartSize" @cart-on-click = "toggleCart"></Header>
-    <TestConsole v-if="testConsole"></TestConsole>
+    <TestConsole v-if="testConsole" :apiEndpoint="endpoints.host + endpoints.lessons"></TestConsole>
     <div class="container-fluid p-3">
       <component 
         :is = "currentView" 
