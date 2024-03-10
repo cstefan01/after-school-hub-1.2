@@ -32,11 +32,13 @@
         </tr>
         <tr class="tax">
           <th>Tax</th>
-          <td>£{{ computedTax.toFixed(2) }} <span>({{ tax }}%)</span></td>
+          <td v-if="computedSubTotal !== 0">£{{ computedTax.toFixed(2) }} <span>({{ tax }}%)</span></td>
+          <td v-else>£{{ computedTax.toFixed(2) }}</span></td>
         </tr>
         <tr class="discount">
           <th>Discount</th>
-          <td><del>£{{ computedDiscount.toFixed(2) }}</del> <span>({{ discount }}%)</span></td>
+          <td v-if="computedSubTotal !== 0"><del>£{{ computedDiscount.toFixed(2) }}</del> <span>({{ discount }}%)</span></td>
+          <td v-else>£{{ computedDiscount.toFixed(2) }}</td>
         </tr>
         <tr class="total">
           <th>Total</th>
