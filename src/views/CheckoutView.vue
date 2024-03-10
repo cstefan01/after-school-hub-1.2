@@ -32,11 +32,11 @@
         </tr>
         <tr class="tax">
           <th>Tax</th>
-          <td>£{{ computedTax.toFixed(2) }}</td>
+          <td>£{{ computedTax.toFixed(2) }} <span>({{ tax }}%)</span></td>
         </tr>
         <tr class="discount">
           <th>Discount</th>
-          <td>£1</td>
+          <td><del>£{{ computedDiscount.toFixed(2) }}</del> <span>({{ discount }}%)</span></td>
         </tr>
         <tr class="total">
           <th>Total</th>
@@ -91,16 +91,29 @@ export default {
       return tax;
 
     },
+    computedDiscount(){
+      const discount = this.computedSubTotal * (this.discount / 100);
+
+      return discount;
+
+    },
     computedTotal(){
-      return this.computedSubTotal + this.computedTax;
+      return (this.computedSubTotal + this.computedTax) - this.computedDiscount;
     }
   }
- 
-
 }
 </script>
 
 <style>
+.bill-info table .discount span{
+  color: rgb(20, 215, 33);
+  font-weight: bold;
+}
+
+.bill-info table .tax span{
+  color: rgb(225, 29, 22);
+  font-weight: bold;
+}
 .btn-checkout{
   display: flex;
   justify-content: center;

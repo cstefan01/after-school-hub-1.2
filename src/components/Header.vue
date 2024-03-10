@@ -49,7 +49,6 @@ i, h1 {
     align-items: center;
     font-family: 'Dancing Script', cursive;
 }
-
 .cart {
     display: flex;
     align-items: center;

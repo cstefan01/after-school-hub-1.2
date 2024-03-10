@@ -20,7 +20,7 @@
         :lessons = "lessons" 
         :cartItems = "cart" 
         :tax = 20
-        :discount = 0
+        :discount = 10
         :imagesSource = "endpoints.host + endpoints.images"
         @add-item-to-cart = "addLessonToCart"
         @remove-item-from-cart = "removeLessonFromCart"
