@@ -12,8 +12,8 @@
         </div>
         <div class="tests col-6">
             <h3>Cache Tests</h3>
-            <button>Delete All Caches</button>
-            <button>Reload Page</button>
+            <button @click="deleteCache">Delete All Caches</button>
+            <button @click="reload">Reload Page</button>
         </div>
     </div>
 
@@ -31,9 +31,18 @@
 export default {
     name: "TestConsole",
     props:{
-        apiEndpoint: {type: String, required: true, default: ""}
-    } 
-
+        apiEndpoint: {type: String, required: true, default: ""},
+        cacheName: {type: String, required: true, default: ""}
+    },
+    methods:{
+        reload(){
+            this.$emit("on-reload");
+        },
+        deleteCache(cacheName){
+            console.log(cacheName);
+            this.$emit("on-cache-delete", cacheName);
+        }
+    }
 }
 </script>
 
@@ -71,10 +80,6 @@ export default {
     display: flex;
     justify-content: start;
     align-items: center;
-    
-
-
-
 }
 
 .tests-panel{

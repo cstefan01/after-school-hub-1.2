@@ -1,7 +1,19 @@
 <template>
   <div id="app" v-cloak>
-    <Header :siteName="site.name" :cartCounter = "computedCartSize" @cart-on-click = "toggleCart"></Header>
-    <TestConsole v-if="testConsole" :apiEndpoint="endpoints.host + endpoints.lessons"></TestConsole>
+    <Header 
+        :siteName="site.name" 
+        :cartCounter = "computedCartSize" 
+        @cart-on-click = "toggleCart"
+        @toggle-test-console = "toggleTestConsole"
+    ></Header>
+    <TestConsole 
+        v-if="testConsole" 
+        :apiEndpoint="endpoints.host + endpoints.lessons"
+        :cacheName = "cache.name"
+        @on-reload = "reload"
+        @on-cache-delete = "deleteCache"
+    ></TestConsole>
+    
     <div class="container-fluid p-3">
       <component 
         :is = "currentView" 
@@ -41,8 +53,11 @@ export default {
         orders: "/orders",
         images: "/images"
       },
+      cache:{
+        name: "main-cache"
+      },
       currentView: LessonView,
-      testConsole: true,
+      testConsole: false,
     }
   },
   components: { LessonView, CheckoutView, Header, CopyrightBar, TestConsole },
@@ -99,6 +114,21 @@ export default {
       }else{
         this.currentView = LessonView
       }
+    },
+    reload(){
+      window.location.reload();
+    },
+    deleteCache(){
+      console.log("clicked");
+      // return caches.delete(cacheName);
+    },
+    toggleTestConsole(){
+      if(this.testConsole === false){
+        this.testConsole = true;
+      }else{
+        this.testConsole = false;
+      }
+
     }
   },
   computed:{
