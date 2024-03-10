@@ -1,29 +1,13 @@
 # after-school-hub
 
-This template should help get you started developing with Vue 3 in Vite.
+## 🌐 Overview
 
-## Recommended IDE Setup
+A basic progressive web mobile application which allows students and their parents to buy after school classes and activities. (academic work)
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+### GitHub Repository
 
-## Customize configuration
+https://github.com/cstefan01/after-school-hub-1.2
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+### GitHub Pages
 
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
+https://cstefan01.github.io/after-school-hub-1.2/
