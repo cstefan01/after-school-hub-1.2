@@ -79,11 +79,6 @@ export default {
       }
 
     },
-    registerServiceWorker(){
-      if("serviceWorker" in navigator){
-        navigator.serviceWorker.register("service-worker.js");
-      }
-    },
     async getLessons() {
       try {
         const endpoint = `${this.endpoints.host}${this.endpoints.lessons}`;
@@ -138,9 +133,6 @@ export default {
   },
   beforeMount() {
     this.fetchLessons();
-  },
-  created() {
-    this.registerServiceWorker();
   }
 }
 </script>
