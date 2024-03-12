@@ -9,9 +9,9 @@
     <TestConsole 
         v-if="testConsole" 
         :apiEndpoint="endpoints.host + endpoints.lessons"
-        :cacheName = "cache.name"
         @on-reload = "reload"
         @on-cache-delete = "deleteCache"
+        @unregister-service-workers = "unregisterServiceWorkers"
     ></TestConsole>
     
     <div class="container-fluid p-3">
@@ -52,9 +52,6 @@ export default {
         lessons: "/lessons",
         orders: "/orders",
         images: "/images"
-      },
-      cache:{
-        name: "main-cache"
       },
       currentView: LessonView,
       testConsole: false,
@@ -114,8 +111,22 @@ export default {
       window.location.reload();
     },
     deleteCache(){
-      console.log("clicked");
-      // return caches.delete(cacheName);
+      caches.keys().then((names) =>{
+        for (let name of names){
+          caches.delete(name);
+        }
+      })
+      console.log("[Cache] All Caches have been removed");
+    },
+    unregisterServiceWorkers(){
+      navigator.serviceWorker.getRegistration().then((registrations) =>{
+        for(let registration of registrations){
+          registration.unregister();
+        }
+      })
+
+      console.log("[Service Workers] All Service Workers have been unregistered");
+
     },
     toggleTestConsole(){
       if(this.testConsole === false){

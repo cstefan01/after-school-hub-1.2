@@ -20,7 +20,7 @@
     <div class="tests-panel col-12">
         <div class="tests col-12">
             <h3>Service Workers</h3>
-            <button>Unregister Service Workers</button>
+            <button @click="unregisterServiceWorkers">Unregister Service Workers</button>
         </div>
     </div>
 
@@ -32,15 +32,17 @@ export default {
     name: "TestConsole",
     props:{
         apiEndpoint: {type: String, required: true, default: ""},
-        cacheName: {type: String, required: true, default: ""}
     },
     methods:{
         reload(){
             this.$emit("on-reload");
         },
-        deleteCache(cacheName){
-            console.log(cacheName);
-            this.$emit("on-cache-delete", cacheName);
+        deleteCache(){
+            this.$emit("on-cache-delete");
+        },
+        unregisterServiceWorkers(){
+            this.$emit("unregister-service-workers");
+
         }
     }
 }
