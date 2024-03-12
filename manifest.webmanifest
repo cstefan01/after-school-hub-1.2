@@ -5,7 +5,7 @@
     "description": "A web-based application which allows students and their parents to buy after school classes and activities.",
     "icons": [
       {
-        "src": "./images/32x32.png",
+        "src": "/images/32x32.png",
         "sizes": "32x32",
         "type": "image/png"
       },
