@@ -1,4 +1,4 @@
-const CACHE_NAME = 'static-cache';
+const CACHE_NAME = 'main-cache';
 const STATIC_FILES = [
     'index.html',
     'manifest.webmanifest',
