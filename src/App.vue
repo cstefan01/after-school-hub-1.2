@@ -119,7 +119,7 @@ export default {
       console.log("[Cache] All Caches have been removed");
     },
     unregisterServiceWorkers(){
-      navigator.serviceWorker.getRegistration().then((registrations) =>{
+      navigator.serviceWorker.getRegistration().then(function (registrations){
         for(let registration of registrations){
           registration.unregister();
         }
