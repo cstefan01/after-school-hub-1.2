@@ -1,5 +1,5 @@
-const staticCacheName = 'static-cache';
-const staticAssets = [
+const CACHE_NAME = 'static-cache';
+const STATIC_FILES = [
     'index.html',
     'manifest.webmanifest',
     'images/32x32.png',
@@ -7,60 +7,35 @@ const staticAssets = [
     'images/no_image.jpg'
 ];
 
-// Install event
 self.addEventListener('install', event => {
     event.waitUntil(
-        caches.open(staticCacheName)
+        caches.open(CACHE_NAME)
             .then(cache => {
-                return cache.addAll(staticAssets);
+                console.log("[Service Worker] Caching all the static files...")
+                return cache.addAll(STATIC_FILES);
             })
     );
 });
 
-// Activate event
-self.addEventListener('activate', event => {
-    event.waitUntil(
-        caches.keys().then(cacheNames => {
-            return Promise.all(
-                cacheNames.filter(cacheName => {
-                    return cacheName.startsWith('static-cache-') && cacheName !== staticCacheName;
-                }).map(cacheName => {
-                    return caches.delete(cacheName);
-                })
-            );
+self.addEventListener("fetch", function (e) {
+    e.respondWith(
+        caches.match(e.request).then(function (cachedFile) {
+            //if the file is in the cache, retrieve it from there
+            if (cachedFile) {
+                console.log("[Service Worker] Resource fetched from the cache for: " + e.request.url);
+                return cachedFile;
+            } else {//if the file is not in the cache, download the file
+                return fetch(e.request).then(function (response) {
+                    return caches.open(cacheName).then(function (cache) {
+                        //add the new file to the cache
+                        cache.put(e.request, response.clone());
+                        console.log("[Service Worker] Resource fetched and saved in the cache for: " +
+                            e.request.url);
+                        return response;
+                    });
+                });
+            }
         })
     );
 });
 
-// Fetch event
-self.addEventListener('fetch', event => {
-    event.respondWith(
-        caches.match(event.request)
-            .then(response => {
-                // Cache hit - return response
-                if (response) {
-                    return response;
-                }
-
-                // Clone the request to avoid consuming it
-                const fetchRequest = event.request.clone();
-
-                return fetch(fetchRequest).then(response => {
-                    // Check if we received a valid response
-                    if (!response || response.status !== 200 || response.type !== 'basic') {
-                        return response;
-                    }
-
-                    // Clone the response to put one copy in the cache
-                    const responseToCache = response.clone();
-
-                    caches.open(staticCacheName)
-                        .then(cache => {
-                            cache.put(event.request, responseToCache);
-                        });
-
-                    return response;
-                });
-            })
-    );
-});
